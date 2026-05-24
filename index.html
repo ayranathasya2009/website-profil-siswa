@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Website Profil Siswa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #eef3f8;
+      color: #333;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 30px auto;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      color: #1e3a5f;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #1e88e5;
+      color: white;
+      cursor: pointer;
+      margin-right: 8px;
+      margin-top: 5px;
+    }
+
+    button:hover {
+      background: #1565c0;
+    }
+
+    .btn-danger {
+      background: #e53935;
+    }
+
+    .btn-danger:hover {
+      background: #b71c1c;
+    }
+
+    .btn-secondary {
+      background: #607d8b;
+    }
+
+    .btn-secondary:hover {
+      background: #455a64;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .header {
+      background: #1e3a5f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      color: white;
+      margin-bottom: 5px;
+    }
+
+    .profile-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .info {
+      background: #f5f9ff;
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 5px solid #1e88e5;
+    }
+
+    .message {
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .success {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    @media (max-width: 600px) {
+      .profile-box {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Website Profil Siswa</h1>
+    <p>Tugas Web Sederhana SMK</p>
+  </div>
+
+  <div class="container">
+
+    <!-- HALAMAN LOGIN -->
+    <div id="loginPage" class="card">
+      <h2>Login</h2>
+
+      <div id="loginMessage" class="message error"></div>
+
+      <label>Username</label>
+      <input type="text" id="username" placeholder="Masukkan username">
+
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Masukkan password">
+
+      <button onclick="login()">Login</button>
+
+      <p style="margin-top: 20px; font-size: 14px;">
+        Default login: <b>admin</b> / <b>12345</b>
+      </p>
+    </div>
+
+    <!-- HALAMAN UTAMA -->
+    <div id="mainPage" class="hidden">
+
+      <div class="card">
+        <h2>Selamat Datang</h2>
+        <p>Ini adalah website profil siswa sederhana menggunakan HTML, CSS, dan JavaScript tanpa database.</p>
+
+        <button onclick="showSection('profileSection')">Profil</button>
+        <button onclick="showSection('editSection')" class="btn-secondary">Edit Profil</button>
+        <button onclick="showSection('passwordSection')" class="btn-secondary">Ubah Password</button>
+        <button onclick="logout()" class="btn-danger">Logout</button>
+      </div>
+
+      <!-- TAMPIL PROFIL -->
+      <div id="profileSection" class="card">
+        <h2>Profil Siswa dan Sekolah</h2>
+
+        <div class="profile-box">
+          <div class="info">
+            <h3>Data Siswa</h3>
+            <p><b>Nama:</b> <span id="viewNama"></span></p>
+            <p><b>Kelas:</b> <span id="viewKelas"></span></p>
+            <p><b>Jurusan:</b> <span id="viewJurusan"></span></p>
+            <p><b>Alamat:</b> <span id="viewAlamat"></span></p>
+          </div>
+
+          <div class="info">
+            <h3>Data Sekolah</h3>
+            <p><b>Nama Sekolah:</b> <span id="viewSekolah"></span></p>
+            <p><b>Alamat Sekolah:</b> <span id="viewAlamatSekolah"></span></p>
+            <p><b>Website Sekolah:</b> <span id="viewWebsite"></span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM EDIT PROFIL -->
+      <div id="editSection" class="card hidden">
+        <h2>Form Profil Siswa</h2>
+
+        <div id="profileMessage" class="message success"></div>
+
+        <label>Nama Siswa</label>
+        <input type="text" id="nama">
+
+        <label>Kelas</label>
+        <input type="text" id="kelas">
+
+        <label>Jurusan</label>
+        <input type="text" id="jurusan">
+
+        <label>Alamat Siswa</label>
+        <textarea id="alamat"></textarea>
+
+        <label>Nama Sekolah</label>
+        <input type="text" id="sekolah">
+
+        <label>Alamat Sekolah</label>
+        <textarea id="alamatSekolah"></textarea>
+
+        <label>Website Sekolah</label>
+        <input type="text" id="website">
+
+        <button onclick="saveProfile()">Simpan Profil</button>
+      </div>
+
+      <!-- FORM UBAH PASSWORD -->
+      <div id="passwordSection" class="card hidden">
+        <h2>Ubah Password Login</h2>
+
+        <div id="passwordMessage" class="message"></div>
+
+        <label>Password Lama</label>
+        <input type="password" id="oldPassword">
+
+        <label>Password Baru</label>
+        <input type="password" id="newPassword">
+
+        <label>Ulangi Password Baru</label>
+        <input type="password" id="confirmPassword">
+
+        <button onclick="changePassword()">Simpan Password Baru</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Username default
+    const defaultUsername = "admin";
+    const defaultPassword = "1234567@888";
+
+    // Buat password awal jika belum ada di browser
+    if (!localStorage.getItem("loginPassword")) {
+      localStorage.setItem("loginPassword", defaultPassword);
+    }
+
+    // Buat data profil awal jika belum ada
+    if (!localStorage.getItem("profileData")) {
+      const defaultProfile = {
+        nama: "Ayra Nathasya Firdaus",
+        kelas: "X Animasi B",
+        jurusan: "Animasi0",
+        alamat: "Komplek Griya Asri Cahaya Cipageran Blok K No. 16, Cimahi",
+        sekolah: "SMK Negeri 2 Cimahi",
+        alamatSekolah: "Jl. Kamarung KM. 1,5 No. 69, RT. 2 / RW. 5, Kelurahan Citeureup, Kecamatan Cimahi Utara, Kota Cimahi, Jawa Barat.",
+        website: "https://smkn2cmi.sch.id/"
+      };
+
+      localStorage.setItem("profileData", JSON.stringify(defaultProfile));
+    }
+
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const savedPassword = localStorage.getItem("loginPassword");
+
+      if (username === defaultUsername && password === savedPassword) {
+        localStorage.setItem("isLogin", "true");
+        showMainPage();
+      } else {
+        showMessage("loginMessage", "Username atau password salah!", "error");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("isLogin");
+      document.getElementById("mainPage").classList.add("hidden");
+      document.getElementById("loginPage").classList.remove("hidden");
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+    }
+
+    function showMainPage() {
+      document.getElementById("loginPage").classList.add("hidden");
+      document.getElementById("mainPage").classList.remove("hidden");
+      loadProfile();
+      showSection("profileSection");
+    }
+
+    function showSection(sectionId) {
+      document.getElementById("profileSection").classList.add("hidden");
+      document.getElementById("editSection").classList.add("hidden");
+      document.getElementById("passwordSection").classList.add("hidden");
+
+      document.getElementById(sectionId).classList.remove("hidden");
+    }
+
+    function loadProfile() {
+      const data = JSON.parse(localStorage.getItem("profileData"));
+
+      document.getElementById("viewNama").innerText = data.nama;
+      document.getElementById("viewKelas").innerText = data.kelas;
+      document.getElementById("viewJurusan").innerText = data.jurusan;
+      document.getElementById("viewAlamat").innerText = data.alamat;
+      document.getElementById("viewSekolah").innerText = data.sekolah;
+      document.getElementById("viewAlamatSekolah").innerText = data.alamatSekolah;
+      document.getElementById("viewWebsite").innerText = data.website;
+
+      document.getElementById("nama").value = data.nama;
+      document.getElementById("kelas").value = data.kelas;
+      document.getElementById("jurusan").value = data.jurusan;
+      document.getElementById("alamat").value = data.alamat;
+      document.getElementById("sekolah").value = data.sekolah;
+      document.getElementById("alamatSekolah").value = data.alamatSekolah;
+      document.getElementById("website").value = data.website;
+    }
+
+    function saveProfile() {
+      const profile = {
+        nama: document.getElementById("nama").value,
+        kelas: document.getElementById("kelas").value,
+        jurusan: document.getElementById("jurusan").value,
+        alamat: document.getElementById("alamat").value,
+        sekolah: document.getElementById("sekolah").value,
+        alamatSekolah: document.getElementById("alamatSekolah").value,
+        website: document.getElementById("website").value
+      };
+
+      localStorage.setItem("profileData", JSON.stringify(profile));
+      loadProfile();
+
+      showMessage("profileMessage", "Profil berhasil disimpan!", "success");
+      showSection("profileSection");
+    }
+
+    function changePassword() {
+      const oldPassword = document.getElementById("oldPassword").value;
+      const newPassword = document.getElementById("newPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const savedPassword = localStorage.getItem("loginPassword");
+
+      if (oldPassword !== savedPassword) {
+        showMessage("passwordMessage", "Password lama salah!", "error");
+        return;
+      }
+
+      if (newPassword.length < 4) {
+        showMessage("passwordMessage", "Password baru minimal 4 karakter!", "error");
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        showMessage("passwordMessage", "Konfirmasi password tidak sama!", "error");
+        return;
+      }
+
+      localStorage.setItem("loginPassword", newPassword);
+
+      document.getElementById("oldPassword").value = "";
+      document.getElementById("newPassword").value = "";
+      document.getElementById("confirmPassword").value = "";
+
+      showMessage("passwordMessage", "Password berhasil diubah!", "success");
+    }
+
+    function showMessage(id, text, type) {
+      const message = document.getElementById(id);
+      message.innerText = text;
+      message.className = "message " + type;
+      message.style.display = "block";
+
+      setTimeout(function() {
+        message.style.display = "none";
+      }, 3000);
+    }
+
+    // Jika sebelumnya sudah login, langsung masuk halaman utama
+    if (localStorage.getItem("isLogin") === "true") {
+      showMainPage();
+    }
+  </script>
+
+</body>
+</html>
