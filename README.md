@@ -978,6 +978,6 @@ Project ini dibuat untuk tugas sekolah SMK.
 ```text
 Nama    : Ayra Nathasya Firdaus
 Kelas   : X Animasi B
-Jurusan : Animaso
+Jurusan : Animasi
 Sekolah : SMK Negeri 2 Cimahi
 ```
