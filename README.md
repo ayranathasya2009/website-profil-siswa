@@ -976,8 +976,8 @@ Dari project ini, saya belajar:
 Project ini dibuat untuk tugas sekolah SMK.
 
 ```text
-Nama    : [Isi Nama Siswa]
-Kelas   : [Isi Kelas]
-Jurusan : [Isi Jurusan]
-Sekolah : [Isi Nama Sekolah]
+Nama    : Ayra Nathasya Firdaus
+Kelas   : X Animasi B
+Jurusan : Animaso
+Sekolah : SMK Negeri 2 Cimahi
 ```
